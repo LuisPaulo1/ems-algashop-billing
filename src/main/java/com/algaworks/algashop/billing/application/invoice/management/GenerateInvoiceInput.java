@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,10 +13,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenerateInvoiceInput{
+public class GenerateInvoiceInput {
     private String orderId;
     private UUID customerId;
     private PaymentSettingsInput paymentSettings;
     private PayerData payer;
-    private Set<LineItemInput> items;
+    private List<LineItemInput> items;
 }

@@ -19,8 +19,8 @@ public class LineItem {
 
     @Builder
     public LineItem(Integer number, String name, BigDecimal amount) {
-        Objects.requireNonNull(number);
         FieldValidations.requiresNonBlank(name);
+        Objects.requireNonNull(number);
         Objects.requireNonNull(amount);
 
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
