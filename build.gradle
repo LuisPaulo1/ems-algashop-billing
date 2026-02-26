@@ -60,6 +60,11 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation platform('org.testcontainers:testcontainers-bom:1.20.6')
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:postgresql'
+
 	mockitoAgent('org.mockito:mockito-core:5.14.2') {transitive = false}
 }
 
@@ -82,6 +87,8 @@ tasks.register('integrationTest', Test) {
 	description = 'Run integration tests.'
 	group = 'verification'
 	jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+
+	jvmArgs += "-Dapi.version=1.44"
 
 	testClassesDirs = sourceSets.test.output.classesDirs
 	classpath = sourceSets.test.runtimeClasspath
@@ -110,5 +117,5 @@ tasks.register('dockerBuild', Exec) {
 	dependsOn('bootJar')
 	workingDir project.rootDir
 	commandLine 'docker', 'buildx', 'build', '--platform', 'linux/arm64/v8,linux/amd64',
-			'--tag', 'csluispaulo/billing:dev', '.'
+			'--tag', 'algashop/billing:dev', '.'
 }
